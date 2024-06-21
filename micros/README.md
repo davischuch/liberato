@@ -1,1 +1,1 @@
-## Repositório com códigos de Sistemas Microprocessados - 3° Ano (2024)
+## Repositorio com codigos de Sistemas Microprocessados - 3o Ano (2024)
