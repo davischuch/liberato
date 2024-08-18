@@ -1,0 +1,4 @@
+espacos: 11
+linhas: 2
+vogais: 18
+artigos: 1
