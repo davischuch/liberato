@@ -1,22 +1,20 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <array>
 #include <fstream>
+#include <array>
+#include <vector>
 #include <map>
+#include <string>
 #include <regex>
+#include <algorithm>
 using namespace std;
 
-map<string, array<array<string, 5>, 11>> matrix;
-
 int main() {
-    int l = 1, lines = -1;
-    string disciplina, identificacao, linha, turma, last, periodos[] = {"07:30", "08:20", "09:10", "10:20", "11:10", "13:10", "14:00", "14:50", "16:00", "16:50", "17:40"};
+    int i = 0, l = 1, lines = -1;
+    string disciplina, identificacao, linha, turma, periodos[] = {"07:30", "08:20", "09:10", "10:20", "11:10", "13:10", "14:00", "14:50", "16:00", "16:50", "17:40"};
     fstream alocacao, horarios, output;
     map<string, vector<string>> lab;
     map<string, int> errors;
-
-    string lastD, lastT;
+    map<string, array<array<string, 5>, 11>> matrix;
 
     alocacao.open("alocacao.csv", ios::in);
     if (!alocacao) {
@@ -48,15 +46,13 @@ int main() {
     }
     alocacao.close();
 
-    int i = 0;
     while(getline(horarios, linha)){
         if(linha.substr(0, 5) == "07:30") i = 0;
         if(linha.substr(0, 5) == "Turma") {
             turma = linha.substr(6, 4);
             continue;
         } else if(linha.substr(2, 1) == ":") {       
-            int k = 6;
-            int j = 0;
+            int k = 6, j = 0;
             for(; k < linha.size(); k++){
                 if (linha[k] == ',') {
                     disciplina = "";
@@ -68,7 +64,7 @@ int main() {
                             if (disciplina == l.second[m]) {
                                 if (matrix[l.first][i][j] != "") {
                                     regex pattern("-\\s*(\\d{4})");
-                                    std::smatch match;
+                                    smatch match;
                                     if (regex_search(matrix[l.first][i][j], match, pattern)) {
                                         string t = match.str(1);
                                         if (t != turma) {
@@ -105,9 +101,9 @@ int main() {
         output << ",,,,,\n";
     }
 
-    output << "relatorio" << std::endl;
-    output << "sala,conflito" << std::endl;
-    output << "," << std::endl;
+    output << "Relatório de Conflitos" << endl;
+    output << "Sala,Conflitos" << endl;
+    output << "," << endl;
     for (auto & it : errors) {
         output << it.first << "," << it.second << endl;
     }
