@@ -101,7 +101,7 @@ int main() {
         output << ",,,,,\n";
     }
 
-    output << "Relatório de Conflitos," << endl;
+    output << "Relatório de Conflitos" << endl;
     output << "Sala,Conflitos" << endl;
     output << "," << endl;
     for (auto & it : errors) {
